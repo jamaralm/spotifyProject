@@ -1,35 +1,35 @@
-package br.com.spotifyProject.user;
+package br.com.spotifyProject.services;
 
-import br.com.spotifyProject.user.exceptions.DuplicateEmailException;
-import org.w3c.dom.ls.LSOutput;
+import br.com.spotifyProject.classes.UserClass;
+import br.com.spotifyProject.exceptions.DuplicateEmailException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UsuarioApp {
+public class UserServices {
     public static void main(String[] args) {
     }
 
-    public void listUsers(ArrayList<Usuario> usuarios)
+    public void listUsers(ArrayList<UserClass> usuarios)
     {
-        for (Usuario u : usuarios){
+        for (UserClass u : usuarios){
             System.out.println(u.getId() + " | " +  u.getNome());
         }
     }
 
-    public void registerUser(Scanner sc, ArrayList<Usuario> usuarios) {
+    public void registerUser(Scanner sc, ArrayList<UserClass> usuarios) {
         System.out.println("Nome de USUARIO: ");
         String userNameInput = sc.nextLine();
 
         boolean validEmail = false;
-        Usuario usuario = null;
+        UserClass usuario = null;
 
         while(!validEmail){
             System.out.println("Email do USUARIO: ");
             String userEmailInput = sc.nextLine();
             try{
                 validateEmail(userEmailInput, usuarios);
-                usuario = new Usuario(userNameInput, userEmailInput);
+                usuario = new UserClass(userNameInput, userEmailInput);
                 usuarios.add(usuario);
                 validEmail = true;
             } catch (DuplicateEmailException e) {
@@ -40,8 +40,8 @@ public class UsuarioApp {
         System.out.println("✅ USUARIO " + usuario.getNome() + " criado com sucesso!");
     }
 
-    public void validateEmail(String email, ArrayList<Usuario> usuarios) throws DuplicateEmailException {
-        for (Usuario u : usuarios){
+    public void validateEmail(String email, ArrayList<UserClass> usuarios) throws DuplicateEmailException {
+        for (UserClass u : usuarios){
             if (u.getEmail().equalsIgnoreCase(email)){
                 throw new DuplicateEmailException("Já existe um usuário com o email: " + email);
             }

@@ -1,13 +1,11 @@
-package br.com.spotifyProject.user;
+package br.com.spotifyProject.classes;
 
-import java.util.UUID;
-
-public class Usuario {
+public class UserClass {
     private static int id = 0;
     private String userName;
     private String userEmail;
 
-    public Usuario(String nameInput, String emailInput) {
+    public UserClass(String nameInput, String emailInput) {
         this.id += 1;
         this.userName = nameInput;
         this.userEmail = emailInput;
