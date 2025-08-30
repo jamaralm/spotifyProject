@@ -4,28 +4,28 @@ import java.util.List;
 
 public class Playlist {
     private int id;
-    private String nome;
-    private UserClass dono;
-    private List<Content> midias;
+    private String name;
+    private UserClass owner;
+    private List<Content> medias;
 
-    public Playlist(int id, String nome, UserClass dono) {
+    public Playlist(int id, String name, UserClass owner) {
         this.id = id;
-        this.nome = nome;
-        this.dono = dono;
-        this.midias = new ArrayList<>();
+        this.name = name;
+        this.owner = owner;
+        this.medias = new ArrayList<>();
     }
 
     public void addMidia(Content midia) {
-        midias.add(midia);
+        medias.add(midia);
     }
 
     public void removeMidia(Content midia) {
-        midias.remove(midia);
+        medias.remove(midia);
     }
 
     public String calcularDuracaoTotal() {
         double totalMinutos = 0;
-        for (Content m : midias) {
+        for (Content m : medias) {
             totalMinutos += m.getDuration();
         }
 
@@ -40,18 +40,18 @@ public class Playlist {
     }
 
     public int getId() { return id; }
-    public String getNome() { return nome; }
-    public UserClass getDono() { return dono; }
-    public List<Content> getMidias() { return midias; }
+    public String getNome() { return name; }
+    public UserClass getDono() { return owner; }
+    public List<Content> getMidias() { return medias; }
 
     @Override
     public String toString() {
         return "Playlist{id=" + id +
-                ", nome='" + nome + '\'' +
-                ", dono=" + dono.getName() +
-                ", midias=" + midias.size() +
-                ", duração total=" + calcularDuracaoTotal() +
+                ", Nome='" + name + '\'' +
+                ", Dono=" + owner.getName() +
+                ", Midias=" + medias.size() +
+                ", Duração total=" + calcularDuracaoTotal() +
                 "}";
     }
 }
-//a
+//ab

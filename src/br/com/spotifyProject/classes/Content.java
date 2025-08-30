@@ -28,4 +28,25 @@ public class Content {
     public double getDuration(){
         return duration;
     }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public void setArtist(String artist){
+        this.artist = artist;
+    }
+
+    public void setGenre(SongGenre genre){
+        this.genre = genre;
+    }
+
+    public void setDuration(int duration){
+        this.duration = duration;
+    }
+
+    @Override
+    public String toString(){
+        return "Title: " + title + ", Artist: " + artist + ", Duration: " + duration;
+    }
 }

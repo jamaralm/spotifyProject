@@ -15,7 +15,7 @@ public class UserClass {
         return id;
     }
 
-    public String getNome() {
+    public String getName() {
         return userName;
     }
 

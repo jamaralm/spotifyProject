@@ -13,7 +13,7 @@ public class UserServices {
     public void listUsers(ArrayList<UserClass> usuarios)
     {
         for (UserClass u : usuarios){
-            System.out.println(u.getId() + " | " +  u.getNome());
+            System.out.println(u.getId() + " | " +  u.getName());
         }
     }
 
@@ -37,7 +37,7 @@ public class UserServices {
                 System.out.println("Digite outro email: ");
             }
         }
-        System.out.println("✅ USUARIO " + usuario.getNome() + " criado com sucesso!");
+        System.out.println("✅ USUARIO " + usuario.getName() + " criado com sucesso!");
     }
 
     public void validateEmail(String email, ArrayList<UserClass> usuarios) throws DuplicateEmailException {
