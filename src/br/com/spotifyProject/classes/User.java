@@ -1,11 +1,11 @@
 package br.com.spotifyProject.classes;
 
-public class UserClass {
+public class User {
     private static int id = 0;
     private String userName;
     private String userEmail;
 
-    public UserClass(String nameInput, String emailInput) {
+    public User(String nameInput, String emailInput) {
         this.id += 1;
         this.userName = nameInput;
         this.userEmail = emailInput;

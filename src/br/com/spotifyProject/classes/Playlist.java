@@ -1,57 +1,79 @@
 package br.com.spotifyProject.classes;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Playlist {
     private int id;
     private String name;
-    private UserClass owner;
-    private List<Content> medias;
+    private User user;
+    private List<Content> mediaList;
 
-    public Playlist(int id, String name, UserClass owner) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
-        this.medias = new ArrayList<>();
-    }
-
-    public void addMidia(Content midia) {
-        medias.add(midia);
-    }
-
-    public void removeMidia(Content midia) {
-        medias.remove(midia);
-    }
-
-    public String calcularDuracaoTotal() {
-        double totalMinutos = 0;
-        for (Content m : medias) {
-            totalMinutos += m.getDuration();
+    public Playlist(int id, String name, User user) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID da playlist deve ser positivo.");
+        }
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Nome da playlist não pode ser vazio.");
+        }
+        if (user == null) {
+            throw new IllegalArgumentException("Usuário dono da playlist não pode ser nulo.");
         }
 
-        int horas = (int) totalMinutos / 60;
-        int minutos = (int) totalMinutos % 60;
+        this.id = id;
+        this.name = name;
+        this.user = user;
+        this.mediaList = new ArrayList<>();
+    }
 
-        if (horas > 0) {
-            return horas + "h " + minutos + "min";
+    public void addMedia(Content media) {
+        if (media == null) {
+            throw new IllegalArgumentException("Mídia não pode ser nula.");
+        }
+        mediaList.add(media);
+    }
+
+    public void removeMedia(Content media) {
+        if (media == null) {
+            throw new IllegalArgumentException("Mídia não pode ser nula.");
+        }
+        if (!mediaList.remove(media)) {
+            System.out.println("⚠️ A mídia não foi encontrada na playlist.");
+        }
+    }
+
+    public String calculateTotalDuration() {
+        double totalMinutes = 0;
+        for (Content m : mediaList) {
+            if (m != null && m.getDuration() >= 0) {
+                totalMinutes += m.getDuration();
+            }
+        }
+
+        int hours = (int) totalMinutes / 60;
+        int minutes = (int) totalMinutes % 60;
+
+        if (hours > 0) {
+            return hours + "h " + minutes + "min";
         } else {
-            return minutos + "min";
+            return minutes + "min";
         }
     }
 
     public int getId() { return id; }
-    public String getNome() { return name; }
-    public UserClass getDono() { return owner; }
-    public List<Content> getMidias() { return medias; }
+    public String getName() { return name; }
+    public User getUser() { return user; }
+    public List<Content> getMediaList() { return Collections.unmodifiableList(mediaList); }
 
     @Override
     public String toString() {
-        return "Playlist{id=" + id +
-                ", Nome='" + name + '\'' +
-                ", Dono=" + owner.getName() +
-                ", Midias=" + medias.size() +
-                ", Duração total=" + calcularDuracaoTotal() +
-                "}";
+        return String.format(
+                "🎶 Playlist '%s' 🎶\nDono: %s\nMídias: %d\nDuração total: %s",
+                name,
+                (user != null ? user.getName() : "Desconhecido"),
+                mediaList.size(),
+                calculateTotalDuration()
+        );
     }
 }
-//ab
