@@ -3,10 +3,10 @@ package br.com.spotifyProject.classes;
 public class Content {
     private String title;
     private String artist;
-    private int duration;
+    private double duration;
     private SongGenre genre;
 
-    public Content(String title, String artist, int duration, SongGenre genre){
+    public Content(String title, String artist, double duration, SongGenre genre){
         this.title = title;
         this.artist = artist;
         this.genre = genre;
