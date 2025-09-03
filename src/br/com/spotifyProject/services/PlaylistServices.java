@@ -58,18 +58,26 @@ public class PlaylistServices {
         return (hours > 0) ? hours + "h " + minutes + "min" : minutes + "min";
     }
 
-    public void printPlaylist(Playlist playlist) {
+    public void printPlaylist(Playlist playlist ) {
         if (playlist == null) {
             throw new IllegalArgumentException("Playlist não pode ser nula.");
         }
 
-        System.out.printf(
-                "🎶 Playlist '%s' 🎶%nDono: %s%nMídias: %d%nDuração total: %s%n",
-                playlist.getName(),
-                (playlist.getUser() != null ? playlist.getUser().getName() : "Desconhecido"),
-                playlist.getMediaList().size(),
-                calculateTotalDuration(playlist)
-        );
+        System.out.println("🎶 Playlist '" + playlist.getName() + "' 🎶");
+        System.out.println("Dono: " + (playlist.getUser() != null ? playlist.getUser().getName() : "Desconhecido"));
+        System.out.println("Mídias (" + playlist.getMediaList().size() + "):");
+
+        int index = 1;
+        for (Content media : playlist.getMediaList()) {
+            System.out.printf(" %d. %s - %s (%.2f min) [%s]%n",
+                    index++,
+                    media.getTitle(),
+                    media.getArtist(),
+                    media.getDuration(),
+                    media.getGenre());
+        }
+
+        System.out.println("Duração total: " + calculateTotalDuration(playlist));
     }
 
     public java.util.List<Content> getMediaListReadOnly(Playlist playlist) {

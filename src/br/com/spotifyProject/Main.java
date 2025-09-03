@@ -22,6 +22,29 @@ public class Main {
         ArrayList<Content> mediaList = new ArrayList<>();
         ArrayList<Playlist> playlists = new ArrayList<>();
 
+        mediaList.add(new Content("Baile de Favela", "MC João", 4.3, SongGenre.FUNK));
+        mediaList.add(new Content("Bum Bum Tam Tam", "MC Fioti", 3.5, SongGenre.FUNK));
+
+        // Rap
+        mediaList.add(new Content("AmarElo", "Emicida", 5.0, SongGenre.RAP));
+        mediaList.add(new Content("Rap God", "Eminem", 6.1, SongGenre.RAP));
+
+        // MPB
+        mediaList.add(new Content("Águas de Março", "Tom Jobim", 3.6, SongGenre.MPB));
+        mediaList.add(new Content("Trem-Bala", "Ana Vilela", 4.0, SongGenre.MPB));
+
+        // Pagode
+        mediaList.add(new Content("Ainda Gosto Dela", "Exaltasamba", 4.2, SongGenre.PAGODE));
+        mediaList.add(new Content("Cheia de Manias", "Raça Negra", 5.1, SongGenre.PAGODE));
+
+        // Forró
+        mediaList.add(new Content("Coração", "Aviões do Forró", 4.0, SongGenre.FORRO));
+        mediaList.add(new Content("Anjo Querubim", "Calcinha Preta", 3.8, SongGenre.FORRO));
+
+        // Pop
+        mediaList.add(new Content("Shape of You", "Ed Sheeran", 4.2, SongGenre.POP));
+        mediaList.add(new Content("Blinding Lights", "The Weeknd", 3.5, SongGenre.POP));
+
         while (running) {
             if (currentUser == null) {
                 System.out.println(" Menu do usuário ");
@@ -39,7 +62,7 @@ public class Main {
                     case 2:
                         System.out.print("Insira seu email: ");
                         String email = scanner.nextLine();
-                        userSessionService.login(currentUser, email, userServices.getAllUsers());
+                        currentUser = userSessionService.login(currentUser, email, userServices.getAllUsers());
                         break;
                     case 3:
                         running = false;
