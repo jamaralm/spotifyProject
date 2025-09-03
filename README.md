@@ -73,7 +73,7 @@ O sistema roda em console e permite cadastro de usuários, gerenciamento de play
 ## 👨‍💻 Autores
 Projeto desenvolvido para fins acadêmicos. 
 
-Grupo de até 5 integrantes.
+Grupo de 5 integrantes: João Amaral, Samuel Schneweiss, Rostand Araújo, Davi Chaves, Samuel Batista e Aníbal Neto
 
 ---
 
