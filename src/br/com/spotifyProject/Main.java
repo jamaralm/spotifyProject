@@ -20,6 +20,7 @@ public class Main {
         boolean running = true;
 
         ArrayList<Content> mediaList = new ArrayList<>();
+        ArrayList<Playlist> playlists = new ArrayList<>();
 
         while (running) {
             if (currentUser == null) {
@@ -38,7 +39,7 @@ public class Main {
                     case 2:
                         System.out.print("Insira seu email: ");
                         String email = scanner.nextLine();
-                        userSessionService.login(email, userServices.getAllUsers());
+                        userSessionService.login(currentUser, email, userServices.getAllUsers());
                         break;
                     case 3:
                         running = false;
@@ -67,19 +68,84 @@ public class Main {
                         mediaServices.searchMedia(scanner, mediaList);
                         break;
                     case 3:
-                        playlistServices.createPlaylist(currentUser, scanner);
+                        System.out.println("Digite o nome da Playlist: ");
+                        String playlistInputName = scanner.nextLine();
+
+                        Playlist newPlaylist = new Playlist(
+                                playlistInputName,
+                                currentUser
+                        );
+                        playlists.add(newPlaylist);
+
+                        System.out.println("✅ Playlist criada com sucesso!");
                         break;
                     case 4:
-                        playlistServices.addMedia(currentUser, mediaList);
+                        if (playlists.isEmpty()) {
+                            System.out.println("⚠️ Nenhuma playlist criada ainda.");
+                            break;
+                        }
+
+                        System.out.println("Escolha a playlist:");
+                        for (int i = 0; i < playlists.size(); i++) {
+                            System.out.println((i + 1) + " - " + playlists.get(i).getName());
+                        }
+                        int playlistIndexAdd = Integer.parseInt(scanner.nextLine()) - 1;
+                        Playlist playlistToAdd = playlists.get(playlistIndexAdd);
+
+                        mediaServices.listMedia(mediaList);
+                        System.out.println("Digite o índice da mídia para adicionar:");
+                        int mediaIndex = Integer.parseInt(scanner.nextLine()) - 1;
+                        Content mediaToAdd = mediaList.get(mediaIndex);
+
+                        playlistServices.addMedia(playlistToAdd, mediaToAdd);
+                        System.out.println("✅ Mídia adicionada à playlist!");
                         break;
+
                     case 5:
-                        playlistServices.removeMedia(currentUser, mediaList);
+                        if (playlists.isEmpty()) {
+                            System.out.println("⚠️ Nenhuma playlist criada ainda.");
+                            break;
+                        }
+
+                        System.out.println("Escolha a playlist:");
+                        for (int i = 0; i < playlists.size(); i++) {
+                            System.out.println((i + 1) + " - " + playlists.get(i).getName());
+                        }
+                        int playlistIndexRemove = Integer.parseInt(scanner.nextLine()) - 1;
+                        Playlist playlistToRemove = playlists.get(playlistIndexRemove);
+
+                        if (playlistToRemove.getMediaList().isEmpty()) {
+                            System.out.println("⚠️ Essa playlist não tem mídias.");
+                            break;
+                        }
+                        for (int i = 0; i < playlistToRemove.getMediaList().size(); i++) {
+                            System.out.println((i + 1) + " - " + playlistToRemove.getMediaList().get(i).getTitle());
+                        }
+                        System.out.println("Digite o índice da mídia para remover:");
+                        int mediaIndexRemove = Integer.parseInt(scanner.nextLine()) - 1;
+                        Content mediaToRemove = playlistToRemove.getMediaList().get(mediaIndexRemove);
+
+                        playlistServices.removeMedia(playlistToRemove, mediaToRemove);
+                        System.out.println("✅ Mídia removida da playlist!");
                         break;
                     case 6:
-                        playlistServices.printPlaylist(currentUser);
+                        if (playlists.isEmpty()) {
+                            System.out.println("⚠️ Nenhuma playlist criada ainda.");
+                            break;
+                        }
+
+                        System.out.println("Escolha a playlist:");
+                        for (int i = 0; i < playlists.size(); i++) {
+                            System.out.println((i + 1) + " - " + playlists.get(i).getName());
+                        }
+                        int playlistIndexPrint = Integer.parseInt(scanner.nextLine()) - 1;
+                        Playlist playlistToPrint = playlists.get(playlistIndexPrint);
+
+                        playlistServices.printPlaylist(playlistToPrint);
                         break;
                     case 7:
-                        currentUser = null;
+                        currentUser = null; // logout
+                        System.out.println("👋 Você saiu da conta.");
                         break;
                     default:
                         System.out.println("Opção inválida.");
