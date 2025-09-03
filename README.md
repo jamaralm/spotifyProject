@@ -1,4 +1,4 @@
-# Mini Spotify — Sistema de Streaming de Mídias Sonoras
+# Mini Spotify — Sistema de Streaming de Mídias
 
 ## 📌 Sobre o projeto
 Este projeto é uma implementação simplificada de um sistema de **streaming de mídias sonoras**, inspirado em plataformas como o Spotify. Ele foi desenvolvido em **Java** utilizando os princípios de **Programação Orientada a Objetos (POO)**: encapsulamento, herança e polimorfismo. Além disso, faz uso de **estruturas de dados (List, Set, Map)** e **tratamento de exceções** para garantir robustez.
@@ -73,7 +73,7 @@ O sistema roda em console e permite cadastro de usuários, gerenciamento de play
 ## 👨‍💻 Autores
 Projeto desenvolvido para fins acadêmicos. 
 
-Grupo de 5 integrantes: João Amaral, Samuel Schneweiss, Rostand Araújo, Davi Chaves, Samuel Batista e Aníbal Neto
+Grupo de 6 integrantes: João Amaral, Samuel Schneweiss, Rostand Araújo, Davi Chaves, Samuel Batista e Aníbal Neto
 
 ---
 
