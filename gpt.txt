@@ -1,0 +1,123 @@
+🔍 Comparação — Seu projeto x Projeto que entreguei
+📦 Organização geral
+
+Seu projeto:
+As classes estão todas soltas, sem divisão clara por pacotes (model, service, exception). Isso funciona, mas deixa o projeto menos modular conforme cresce.
+
+Meu projeto:
+Estruturei em pacotes: model (entidades), service (regras de negócio), repo (armazenamento), exception (tratamento de erros) e Main (entrada). Isso segue um padrão mais próximo de boas práticas.
+
+👉 Diferença: a modularização facilita manutenção, mas para um projeto acadêmico o seu também é válido.
+
+🧑 Usuário
+
+Seu projeto (User.java):
+Tem atributos simples (id, nome, email, playlists) e métodos básicos para manipulação de playlists.
+
+Meu projeto (Usuario.java):
+Muito parecido, mas centraliza o gerenciamento de playlists via PlaylistService.
+
+👉 Convergência: ambos tratam usuário de forma simples.
+👉 Divergência: você deixa mais responsabilidades dentro da própria classe User, enquanto eu extraí lógica para serviços.
+
+🎵 Mídias
+
+Seu projeto:
+Criou uma superclasse abstrata Content com subclasses (Song, Podcast, Audiobooks).
+
+Muito bom: uso claro de herança e polimorfismo.
+
+Tem enum SongGenre para gêneros.
+
+Meu projeto:
+Fiz algo similar com Midia abstrata e subclasses (Musica, Podcast, Audiobook), além da enum Genero.
+
+👉 Aqui vocês e eu tivemos convergência forte: abstração e especialização bem aplicadas.
+👉 Diferença: nomes de classes (Song vs Musica, Audiobooks no plural em vez de Audiobook) e detalhe na enum.
+
+📂 Playlist
+
+Seu projeto (Playlist.java):
+Contém lista de Content, métodos para adicionar, remover e calcular duração total.
+
+Meu projeto (Playlist.java):
+Mesmo conceito, também calcula duração.
+
+👉 Convergência: ambos bem próximos.
+👉 Divergência: no seu, a playlist é mais direta; no meu, uso serviços para gerenciar.
+
+📚 Catálogo
+
+Seu projeto:
+Você não tem uma classe Catalogo isolada. O papel do catálogo está meio distribuído: o MediaServices parece cuidar disso.
+
+Meu projeto:
+Coloquei um repositório Catalogo dedicado, armazenando todas as mídias e expondo buscas.
+
+👉 Diferença: no seu, a função existe mas está embutida no service. No meu, separei em uma classe específica.
+
+⚙️ Services
+
+Seu projeto (MediaServices.java):
+Concentra lógica de cadastro e busca de mídias.
+Você ainda não tem UserServices ou PlaylistServices separados (ficam no User e Playlist).
+
+Meu projeto:
+Quebrei em UsuarioService, PlaylistService e CatalogoService, deixando responsabilidades mais divididas.
+
+👉 Diferença: o seu é mais enxuto, mas o meu é mais modular e escalável.
+
+⚠️ Exceções
+
+Seu projeto:
+Só criou DuplicateEmailException.
+
+Meu projeto:
+Criei várias exceções (DuplicateEmailException, PlaylistNaoEncontradaException, MediaNaoEncontradaException, etc).
+
+👉 Diferença: você cobriu o caso mínimo, eu expandi para vários cenários. Mas sua abordagem atende ao requisito.
+
+🎮 Main
+
+Seu projeto (Main.java):
+Tem menu de console, com scanner e cases para login, criação de playlists, etc.
+
+Meu projeto (Main.java):
+Idem, mas organizado chamando mais serviços e com tratamento de exceções.
+
+👉 Convergência: ambos usam menu de console.
+👉 Diferença: você chama métodos diretamente, eu encapsulei em serviços.
+
+📊 Análise crítica
+
+Convergências:
+
+Ambos aplicam herança (Content/Midia e subclasses).
+
+Ambos usam enum para gênero.
+
+Playlists e usuários têm comportamento muito parecido.
+
+Menu em console para interação.
+
+Divergências:
+
+Estrutura de pacotes: você manteve simples, eu dividi em módulos.
+
+Serviços: você centralizou em poucas classes, eu criei vários services.
+
+Exceções: você fez o mínimo, eu expandi.
+
+Catálogo: no seu, embutido no service; no meu, separado em repositório.
+
+Pontos fortes do seu:
+
+Código mais direto e enxuto, fácil de entender.
+
+Boa aplicação de herança e enum.
+
+Pontos fortes do meu:
+
+Organização modular, escalável para projetos maiores.
+
+Mais exceções e separação clara de responsabilidades.
