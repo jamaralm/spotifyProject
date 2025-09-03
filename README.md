@@ -1,4 +1,4 @@
-# spotifyProject# Mini Spotify — Sistema de Streaming de Mídias Sonoras
+# Mini Spotify — Sistema de Streaming de Mídias Sonoras
 
 ## 📌 Sobre o projeto
 Este projeto é uma implementação simplificada de um sistema de **streaming de mídias sonoras**, inspirado em plataformas como o Spotify. Ele foi desenvolvido em **Java** utilizando os princípios de **Programação Orientada a Objetos (POO)**: encapsulamento, herança e polimorfismo. Além disso, faz uso de **estruturas de dados (List, Set, Map)** e **tratamento de exceções** para garantir robustez.
@@ -35,35 +35,6 @@ O sistema roda em console e permite cadastro de usuários, gerenciamento de play
 
 ### Gêneros
 - Enumeração `Genero` com valores como: `ROCK`, `POP`, `MPB`, `JAZZ`, `CLASSICA`, entre outros.
-
----
-
-## 🗂 Estrutura do projeto
-```
-src/
-└── br/com/minispotify/
-    ├── Main.java
-    ├── model/
-    │   ├── Genero.java
-    │   ├── Midia.java
-    │   ├── Musica.java
-    │   ├── Podcast.java
-    │   ├── Audiobook.java
-    │   ├── Playlist.java
-    │   └── Usuario.java
-    ├── repo/
-    │   └── Catalogo.java
-    ├── service/
-    │   ├── CatalogoService.java
-    │   ├── PlaylistService.java
-    │   └── UsuarioService.java
-    └── exception/
-        ├── DuplicateEmailException.java
-        ├── EntidadeNaoEncontradaException.java
-        ├── MediaNaoEncontradaException.java
-        ├── PlaylistNaoEncontradaException.java
-        └── OperacaoInvalidaException.java
-```
 
 ---
 
