@@ -45,4 +45,20 @@ public class MediaServices {
         Content newContent = new Content(mediaNameInput, artistInput, mediaDurationInMinutes, choosedGenre);
         mediaList.add(newContent);
     }
+    public void searchMedia(Scanner sc, ArrayList<Content> mediaList) {
+        System.out.println("Digite o nome da mídia para buscar: ");
+        String searchTerm = sc.nextLine().toLowerCase();
+
+        boolean found = false;
+
+        for (Content content : mediaList) {
+            if (content.getTitle().toLowerCase().contains(searchTerm)) {
+                System.out.println(content);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Mídia não encontrada.");
+        }
+    }
 }

@@ -1,9 +1,10 @@
-package br.com.spotifyProject.app;
+package br.com.spotifyProject;
 
 import br.com.spotifyProject.classes.*;
 import br.com.spotifyProject.services.MediaServices;
 import br.com.spotifyProject.services.PlaylistServices;
 import br.com.spotifyProject.services.UserServices;
+import br.com.spotifyProject.services.UserSessionService;
 
 import java.util.*;
 
@@ -11,11 +12,14 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static UserServices userServices = new UserServices();
     private static PlaylistServices playlistServices = new PlaylistServices();
-    private static MediaServic1es mediaServices = new MediaServices();
+    private static UserSessionService userSessionService = new UserSessionService();
+    private static MediaServices mediaServices = new MediaServices();
     private static User currentUser = null;
 
     public static void main(String[] args) {
         boolean running = true;
+
+        ArrayList<Content> mediaList = new ArrayList<>();
 
         while (running) {
             if (currentUser == null) {
@@ -29,10 +33,12 @@ public class Main {
 
                 switch (option) {
                     case 1:
-                        userServices.registerUser(scanner, userList);
+                        userServices.registerUser(scanner);
                         break;
                     case 2:
-                        loginUser();
+                        System.out.print("Insira seu email: ");
+                        String email = scanner.nextLine();
+                        userSessionService.login(email, userServices.getAllUsers());
                         break;
                     case 3:
                         running = false;
@@ -42,33 +48,37 @@ public class Main {
                 }
             } else {
                 System.out.println("\n Menu do spotify " +
-                        "\n1. Listar catálogo" +
+                        "\n1. Listar mídias" +
                         "\n2. Buscar mídia" +
                         "\n3. Criar playlist" +
-                        "\n4. Adicionar/remover mídia da playlist" +
-                        "\n5. Mostrar playlist e duração" +
-                        "\n6. Logout");
+                        "\n4. Adicionar mídia da playlist" +
+                        "\n5  Remover mídia da playlist" +
+                        "\n6. Mostrar playlist e duração" +
+                        "\n7. Logout");
                 System.out.print("Escolha: ");
                 int option = scanner.nextInt();
                 scanner.nextLine();
 
                 switch (option) {
                     case 1:
-                        listCatalog();
+                        mediaServices.listMedia(mediaList);
                         break;
                     case 2:
-                        searchMedia();
+                        mediaServices.searchMedia(scanner, mediaList);
                         break;
                     case 3:
-                        createPlaylist();
+                        playlistServices.createPlaylist(currentUser, scanner);
                         break;
                     case 4:
-                        modifyPlaylist();
+                        playlistServices.addMedia(currentUser, mediaList);
                         break;
                     case 5:
-                        showPlaylist();
+                        playlistServices.removeMedia(currentUser, mediaList);
                         break;
                     case 6:
+                        playlistServices.printPlaylist(currentUser);
+                        break;
+                    case 7:
                         currentUser = null;
                         break;
                     default:

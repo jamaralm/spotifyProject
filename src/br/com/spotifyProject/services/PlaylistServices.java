@@ -8,7 +8,7 @@ import java.util.Collections;
 
 public class PlaylistServices {
 
-    public Playlist createPlaylist(String name, User user) {
+    public void createPlaylist(String name, User user) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Nome da playlist não pode ser vazio.");
         }
@@ -16,7 +16,6 @@ public class PlaylistServices {
             throw new IllegalArgumentException("Usuário dono da playlist não pode ser nulo.");
         }
 
-        return new Playlist(name, user);
     }
 
     public void addMedia(Playlist playlist, Content media) {
