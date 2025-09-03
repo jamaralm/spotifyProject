@@ -20,21 +20,4 @@ public class UserSessionService {
 
         return null;
     }
-
-    public void logout(User loggedUser) {
-        if (loggedUser != null) {
-            System.out.println("👋 Usuário " + loggedUser.getName() + " deslogado.");
-            loggedUser = null;
-        } else {
-            System.out.println("⚠️ Nenhum usuário está logado.");
-        }
-    }
-
-    public boolean isLoggedIn(User loggedUser) {
-        return loggedUser != null;
-    }
-
-    public User getLoggedUser(User loggedUser) {
-        return loggedUser;
-    }
 }

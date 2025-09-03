@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
-    private int id;
+
+    //private int id;
+
     private String name;
     private User user;
     private List<Content> mediaList;
@@ -15,7 +17,8 @@ public class Playlist {
         this.mediaList = new ArrayList<>();
     }
 
-    public int getId() { return id; }
+    //public int getId() { return id; }
+
     public String getName() { return name; }
     public User getUser() { return user; }
     public List<Content> getMediaList() { return mediaList; }

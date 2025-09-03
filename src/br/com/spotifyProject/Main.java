@@ -22,28 +22,35 @@ public class Main {
         ArrayList<Content> mediaList = new ArrayList<>();
         ArrayList<Playlist> playlists = new ArrayList<>();
 
+        //MÚSICAS
         mediaList.add(new Content("Baile de Favela", "MC João", 4.3, SongGenre.FUNK));
         mediaList.add(new Content("Bum Bum Tam Tam", "MC Fioti", 3.5, SongGenre.FUNK));
 
-        // Rap
         mediaList.add(new Content("AmarElo", "Emicida", 5.0, SongGenre.RAP));
         mediaList.add(new Content("Rap God", "Eminem", 6.1, SongGenre.RAP));
 
-        // MPB
         mediaList.add(new Content("Águas de Março", "Tom Jobim", 3.6, SongGenre.MPB));
         mediaList.add(new Content("Trem-Bala", "Ana Vilela", 4.0, SongGenre.MPB));
 
-        // Pagode
         mediaList.add(new Content("Ainda Gosto Dela", "Exaltasamba", 4.2, SongGenre.PAGODE));
         mediaList.add(new Content("Cheia de Manias", "Raça Negra", 5.1, SongGenre.PAGODE));
 
-        // Forró
         mediaList.add(new Content("Coração", "Aviões do Forró", 4.0, SongGenre.FORRO));
         mediaList.add(new Content("Anjo Querubim", "Calcinha Preta", 3.8, SongGenre.FORRO));
 
-        // Pop
         mediaList.add(new Content("Shape of You", "Ed Sheeran", 4.2, SongGenre.POP));
         mediaList.add(new Content("Blinding Lights", "The Weeknd", 3.5, SongGenre.POP));
+
+        //PODCASTS
+        mediaList.add(new Podcast("Flow Podcast #1", "Monark & Igor", 120));
+        mediaList.add(new Podcast("Inteligência Ltda", "Rogério Vilela", 90));
+        mediaList.add(new Podcast("Café da Manhã", "Folha de SP", 25));
+
+
+        //AUDIOBOOKS
+        mediaList.add(new Audiobooks("O Hobbit", "J.R.R. Tolkien", 720));
+        mediaList.add(new Audiobooks("1984", "George Orwell", 660));
+        mediaList.add(new Audiobooks("Dom Casmurro", "Machado de Assis", 480));
 
         while (running) {
             if (currentUser == null) {
@@ -52,8 +59,13 @@ public class Main {
                 System.out.println("2. Login");
                 System.out.println("3. Sair");
                 System.out.print("Escolha: ");
-                int option = scanner.nextInt();
-                scanner.nextLine();
+                int option;
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Entrada inválida. Digite um número.");
+                    continue;
+                }
 
                 switch (option) {
                     case 1:
@@ -80,8 +92,13 @@ public class Main {
                         "\n6. Mostrar playlist e duração" +
                         "\n7. Logout");
                 System.out.print("Escolha: ");
-                int option = scanner.nextInt();
-                scanner.nextLine();
+                int option;
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Entrada inválida. Digite um número.");
+                    continue;
+                }
 
                 switch (option) {
                     case 1:
@@ -104,7 +121,7 @@ public class Main {
                         break;
                     case 4:
                         if (playlists.isEmpty()) {
-                            System.out.println("⚠️ Nenhuma playlist criada ainda.");
+                            System.out.println("Nenhuma playlist criada ainda.");
                             break;
                         }
 
@@ -112,21 +129,41 @@ public class Main {
                         for (int i = 0; i < playlists.size(); i++) {
                             System.out.println((i + 1) + " - " + playlists.get(i).getName());
                         }
-                        int playlistIndexAdd = Integer.parseInt(scanner.nextLine()) - 1;
+                        int playlistIndexAdd;
+                        try {
+                            playlistIndexAdd = Integer.parseInt(scanner.nextLine()) - 1;
+                            if (playlistIndexAdd < 0 || playlistIndexAdd >= playlists.size()) {
+                                System.out.println("Índice inválido.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida.");
+                            break;
+                        }
                         Playlist playlistToAdd = playlists.get(playlistIndexAdd);
 
                         mediaServices.listMedia(mediaList);
                         System.out.println("Digite o índice da mídia para adicionar:");
-                        int mediaIndex = Integer.parseInt(scanner.nextLine()) - 1;
+                        int mediaIndex;
+                        try {
+                            mediaIndex = Integer.parseInt(scanner.nextLine()) - 1;
+                            if (mediaIndex < 0 || mediaIndex >= mediaList.size()) {
+                                System.out.println("Índice de mídia inválido.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida.");
+                            break;
+                        }
                         Content mediaToAdd = mediaList.get(mediaIndex);
 
                         playlistServices.addMedia(playlistToAdd, mediaToAdd);
                         System.out.println("✅ Mídia adicionada à playlist!");
-                        break;
+
 
                     case 5:
                         if (playlists.isEmpty()) {
-                            System.out.println("⚠️ Nenhuma playlist criada ainda.");
+                            System.out.println("Nenhuma playlist criada ainda.");
                             break;
                         }
 
@@ -134,26 +171,46 @@ public class Main {
                         for (int i = 0; i < playlists.size(); i++) {
                             System.out.println((i + 1) + " - " + playlists.get(i).getName());
                         }
-                        int playlistIndexRemove = Integer.parseInt(scanner.nextLine()) - 1;
+                        int playlistIndexRemove;
+                        try {
+                            playlistIndexRemove = Integer.parseInt(scanner.nextLine()) - 1;
+                            if (playlistIndexRemove < 0 || playlistIndexRemove >= playlists.size()) {
+                                System.out.println("Índice inválido.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida.");
+                            break;
+                        }
                         Playlist playlistToRemove = playlists.get(playlistIndexRemove);
 
                         if (playlistToRemove.getMediaList().isEmpty()) {
-                            System.out.println("⚠️ Essa playlist não tem mídias.");
+                            System.out.println("Essa playlist não tem mídias.");
                             break;
                         }
                         for (int i = 0; i < playlistToRemove.getMediaList().size(); i++) {
                             System.out.println((i + 1) + " - " + playlistToRemove.getMediaList().get(i).getTitle());
                         }
                         System.out.println("Digite o índice da mídia para remover:");
-                        int mediaIndexRemove = Integer.parseInt(scanner.nextLine()) - 1;
+                        int mediaIndexRemove;
+                        try {
+                            mediaIndexRemove = Integer.parseInt(scanner.nextLine()) - 1;
+                            if (mediaIndexRemove < 0 || mediaIndexRemove >= playlistToRemove.getMediaList().size()) {
+                                System.out.println("Índice inválido.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida.");
+                            break;
+                        }
                         Content mediaToRemove = playlistToRemove.getMediaList().get(mediaIndexRemove);
 
                         playlistServices.removeMedia(playlistToRemove, mediaToRemove);
                         System.out.println("✅ Mídia removida da playlist!");
-                        break;
+
                     case 6:
                         if (playlists.isEmpty()) {
-                            System.out.println("⚠️ Nenhuma playlist criada ainda.");
+                            System.out.println("⚠Nenhuma playlist criada ainda.");
                             break;
                         }
 
@@ -161,14 +218,23 @@ public class Main {
                         for (int i = 0; i < playlists.size(); i++) {
                             System.out.println((i + 1) + " - " + playlists.get(i).getName());
                         }
-                        int playlistIndexPrint = Integer.parseInt(scanner.nextLine()) - 1;
+                        int playlistIndexPrint;
+                        try {
+                            playlistIndexPrint = Integer.parseInt(scanner.nextLine()) - 1;
+                            if (playlistIndexPrint < 0 || playlistIndexPrint >= playlists.size()) {
+                                System.out.println("Índice inválido.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida.");
+                            break;
+                        }
                         Playlist playlistToPrint = playlists.get(playlistIndexPrint);
-
                         playlistServices.printPlaylist(playlistToPrint);
-                        break;
+
                     case 7:
-                        currentUser = null; // logout
-                        System.out.println("👋 Você saiu da conta.");
+                        currentUser = null;
+                        System.out.println("Você saiu da conta! Agradecemos o acesso.");
                         break;
                     default:
                         System.out.println("Opção inválida.");
@@ -176,6 +242,6 @@ public class Main {
             }
         }
 
-        System.out.println("Encerrando o spotify");
+        System.out.println("Encerrando o spotify...");
     }
 }

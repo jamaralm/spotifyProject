@@ -68,14 +68,7 @@ public class PlaylistServices {
         System.out.println("Mídias (" + playlist.getMediaList().size() + "):");
 
         int index = 1;
-        for (Content media : playlist.getMediaList()) {
-            System.out.printf(" %d. %s - %s (%.2f min) [%s]%n",
-                    index++,
-                    media.getTitle(),
-                    media.getArtist(),
-                    media.getDuration(),
-                    media.getGenre());
-        }
+        getMediaListReadOnly(playlist);
 
         System.out.println("Duração total: " + calculateTotalDuration(playlist));
     }
